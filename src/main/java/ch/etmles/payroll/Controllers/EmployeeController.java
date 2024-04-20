@@ -26,7 +26,7 @@ public class EmployeeController {
     /* curl sample :
     curl -i -X POST localhost:8080/employees ^
         -H "Content-type:application/json" ^
-        -d "{\"name\": \"Russel George\", \"role\": \"gardener\"}"
+        -d "{\"name\": \"Russel George\", \"role\": \"gardener\", \"date of birth\": \"01-01-2000\"}"
     */
     @PostMapping("/employees")
     Employee newEmployee(@RequestBody Employee newEmployee){
@@ -45,7 +45,7 @@ public class EmployeeController {
     /* curl sample :
     curl -i -X PUT localhost:8080/employees/2 ^
         -H "Content-type:application/json" ^
-        -d "{\"name\": \"Samwise Bing\", \"role\": \"peer-to-peer\"}"
+        -d "{\"name\": \"Samwise Bing\", \"role\": \"peer-to-peer\", \"date of birth\": \"01-01-2020\"}"
      */
     @PutMapping("/employees/{id}")
     Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
@@ -53,6 +53,7 @@ public class EmployeeController {
                 .map(employee -> {
                     employee.setName(newEmployee.getName());
                     employee.setRole(newEmployee.getRole());
+                    employee.setDateOfBirth(newEmployee.getDateOfBirth());
                     return repository.save(employee);
                 })
                 .orElseGet(() -> {
